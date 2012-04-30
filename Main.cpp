@@ -8,13 +8,13 @@ extern "C"
 
 		info->infoVersion =	PluginInfo::kInfoVersion;
 		info->name =		"Nitpick";
-		info->version =		1;
+		info->version =		2;
 
 		g_pluginHandle = skse->GetPluginHandle();
 
 		if(skse->isEditor)
 			return false;
-		else if(skse->runtimeVersion != RUNTIME_VERSION_1_4_21_0)
+		else if(skse->runtimeVersion != RUNTIME_VERSION_1_5_26_0)
 		{
 			_MESSAGE("Unsupported runtime version %08X", skse->runtimeVersion);
 			return false;

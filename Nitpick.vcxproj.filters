@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="..\[Libraries]\MemoryHandler\MemoryHandler.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="..\SKSE\skse\GameAPI.cpp">
       <Filter>SKSE</Filter>
     </ClCompile>
@@ -36,6 +33,9 @@
       <Filter>SKSE</Filter>
     </ClCompile>
     <ClCompile Include="NitpickInternals.cpp" />
+    <ClCompile Include="..\[Libraries]\SME Sundries\MemoryHandler.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SKSE">
@@ -56,12 +56,6 @@
   <ItemGroup>
     <ClInclude Include="resource.h">
       <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="..\[Libraries]\SME_Prefix.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\[Libraries]\MemoryHandler\MemoryHandler.h">
-      <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="..\SKSE\skse\GameAPI.h">
       <Filter>SKSE</Filter>
@@ -97,6 +91,12 @@
       <Filter>SKSE</Filter>
     </ClInclude>
     <ClInclude Include="NitpickInternals.h" />
+    <ClInclude Include="..\[Libraries]\SME Sundries\MemoryHandler.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\[Libraries]\SME Sundries\SME_Prefix.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Nitpick.rc">
