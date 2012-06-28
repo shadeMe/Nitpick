@@ -142,6 +142,5 @@ struct LODSettings
 
 void StartPickingNit(void);
 
-_DeclareMemHdlr(LODData, "");
 _DeclareMemHdlr(INICollectionLoadSetting, "removes the 0x100-char limit placed on string settings");
 _DeclareMemHdlr(TESDataHandlerPopulatePluginList, "fixes the plugin list init code to skip inactive files");

@@ -3,15 +3,12 @@
 
 IDebugLog						gLog("Nitpick.log");
 PluginHandle					g_pluginHandle = kPluginHandle_Invalid;
-BSTSmartPointer<bhkWorldM*>*	g_bhkWorldM = (BSTSmartPointer<bhkWorldM*>*)0x012B2B18;
 
-_DefineHookHdlr(LODData, 0x0062830F);
-_DefineHookHdlr(INICollectionLoadSetting, 0x00AE6EB3);
-_DefineHookHdlr(TESDataHandlerPopulatePluginList, 0x0043EB76);
+_DefineHookHdlr(INICollectionLoadSetting, 0x00AF7753);
+_DefineHookHdlr(TESDataHandlerPopulatePluginList, 0x0043EBF7);
 
 void StartPickingNit()
 {
-//	_MemHdlr(LODData).WriteJump();
 	_MemHdlr(INICollectionLoadSetting).WriteJump();
 	_MemHdlr(TESDataHandlerPopulatePluginList).WriteJump();
 }
@@ -21,7 +18,7 @@ static char			s_GetPrivateProfileStringAuxBuffer[0x8000] = {0};		// large enough
 #define _hhName	INICollectionLoadSetting
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x00AE6ED4);
+	_hhSetVar(Retn, 0x00AF7774);
 	__asm
 	{
 		push    0x8000
@@ -43,8 +40,8 @@ bool __stdcall FixPluginListPopulation(WIN32_FIND_DATA* FileData)
 	static std::list<std::string> kActivePluginList;
 	if (kActivePluginList.size() == 0)
 	{
-		const char* kAppDataPath = (const char*)0x013F0838;
-		const char* kPluginListName = *((const char**)0x01249134);
+		const char* kAppDataPath = (const char*)0x01411CC8;
+		const char* kPluginListName = *((const char**)0x012686C4);
 
 		char Buffer[0x104] = {0};
 		strcpy_s(Buffer, sizeof(Buffer), kAppDataPath);
@@ -85,8 +82,8 @@ bool __stdcall FixPluginListPopulation(WIN32_FIND_DATA* FileData)
 #define _hhName	TESDataHandlerPopulatePluginList
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x0043EB7D);
-	_hhSetVar(Jump, 0x0043ECE1);
+	_hhSetVar(Retn, 0x0043EBFE);
+	_hhSetVar(Jump, 0x0043ED63);
 	__asm
 	{
 		lea     eax, [esp + 0x128]
@@ -105,33 +102,5 @@ _hhBegin()
 		jmp		[_hhGetVar(Retn)]
 	SKIPPLUGIN:
 		jmp		[_hhGetVar(Jump)]
-	}
-}
-
-void __stdcall DoLODDataHook(LODSettings* LOD)
-{
-	if (LOD->left == LOD->bottom && LOD->left == -96)
-	{
-		LOD->left = -97;
-		LOD->bottom = -97;
-		//	LOD->lowestsize_lod = 16;
-	}
-}
-
-#define _hhName	LODData
-_hhBegin()
-{
-	_hhSetVar(Retn, 0x00628314);
-	_hhSetVar(Call, 0x00AF0780);
-	__asm
-	{
-		call	[_hhGetVar(Call)]
-
-		pushad
-		push	esi
-		call	DoLODDataHook
-		popad
-
-		jmp		[_hhGetVar(Retn)]
 	}
 }

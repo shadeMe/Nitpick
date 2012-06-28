@@ -87,6 +87,12 @@
     <PostBuildEvent>
       <Message>Installing DLL...</Message>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>cscript.exe "$(SolutionDir)\BuildIncrement.jse"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Setting build number...</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -119,6 +125,12 @@
     <PostBuildEvent>
       <Message>Installing DLL...</Message>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>cscript.exe "$(SolutionDir)\BuildIncrement.jse"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Setting build number...</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\common.vcxproj">
@@ -126,7 +138,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="exports.def" />
+    <None Include="Exports.def" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\SKSE\skse\GameAPI.cpp" />
@@ -140,7 +152,7 @@
     <ClCompile Include="..\SKSE\skse\GameTypes.cpp" />
     <ClCompile Include="..\SKSE\skse\Utilities.cpp" />
     <ClCompile Include="..\[Libraries]\SME Sundries\MemoryHandler.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="NitpickInternals.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,10 +170,10 @@
     <ClInclude Include="..\[Libraries]\SME Sundries\MemoryHandler.h" />
     <ClInclude Include="..\[Libraries]\SME Sundries\SME_Prefix.h" />
     <ClInclude Include="NitpickInternals.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="VersionInfo.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Nitpick.rc" />
+    <ResourceCompile Include="VersionInfo.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
