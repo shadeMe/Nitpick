@@ -4,8 +4,8 @@
 IDebugLog						gLog("Nitpick.log");
 PluginHandle					g_pluginHandle = kPluginHandle_Invalid;
 
-_DefineHookHdlr(INICollectionLoadSetting, 0x00AF7753);
-_DefineHookHdlr(TESDataHandlerPopulatePluginList, 0x0043EBF7);
+_DefineHookHdlr(INICollectionLoadSetting, 0x00AD0B13);
+_DefineHookHdlr(TESDataHandlerPopulatePluginList, 0x0043EA97);
 
 void StartPickingNit()
 {
@@ -18,7 +18,7 @@ static char			s_GetPrivateProfileStringAuxBuffer[0x8000] = {0};		// large enough
 #define _hhName	INICollectionLoadSetting
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x00AF7774);
+	_hhSetVar(Retn, 0x00AD0B34);
 	__asm
 	{
 		push    0x8000
@@ -40,8 +40,8 @@ bool __stdcall FixPluginListPopulation(WIN32_FIND_DATA* FileData)
 	static std::list<std::string> kActivePluginList;
 	if (kActivePluginList.size() == 0)
 	{
-		const char* kAppDataPath = (const char*)0x01411CC8;
-		const char* kPluginListName = *((const char**)0x012686C4);
+		const char* kAppDataPath = (const char*)0x01B438E8;
+		const char* kPluginListName = *((const char**)0x0121AF7C);
 
 		char Buffer[0x104] = {0};
 		strcpy_s(Buffer, sizeof(Buffer), kAppDataPath);
@@ -82,8 +82,8 @@ bool __stdcall FixPluginListPopulation(WIN32_FIND_DATA* FileData)
 #define _hhName	TESDataHandlerPopulatePluginList
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x0043EBFE);
-	_hhSetVar(Jump, 0x0043ED63);
+	_hhSetVar(Retn, 0x0043EA9E);
+	_hhSetVar(Jump, 0x0043EC03);
 	__asm
 	{
 		lea     eax, [esp + 0x128]
