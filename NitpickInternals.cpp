@@ -6,11 +6,19 @@ PluginHandle					g_pluginHandle = kPluginHandle_Invalid;
 
 _DefineHookHdlr(INICollectionLoadSetting, 0x00AD0B13);
 _DefineHookHdlr(TESDataHandlerPopulatePluginList, 0x0043EA97);
+_DefineNopHdlr(SkipDefaultVerletObjA, 0x0046EFA0, 2);
+_DefinePatchHdlr(SkipDefaultVerletObjB, 0x0046EF6C);
+
+static float kUnkVerletMultiplier = -2000.0f;
 
 void StartPickingNit()
 {
 	_MemHdlr(INICollectionLoadSetting).WriteJump();
 	_MemHdlr(TESDataHandlerPopulatePluginList).WriteJump();
+	_MemHdlr(SkipDefaultVerletObjA).WriteNop();
+	_MemHdlr(SkipDefaultVerletObjB).WriteUInt8(0xEB);
+//	SafeWrite32(0x006C0874 + 2, (UInt32)&kUnkVerletMultiplier);
+//	SafeWrite32(0x006C08E4 + 2, (UInt32)&kUnkVerletMultiplier);
 }
 
 static char			s_GetPrivateProfileStringAuxBuffer[0x8000] = {0};		// large enough, I should think
