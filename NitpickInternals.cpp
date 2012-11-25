@@ -4,21 +4,13 @@
 IDebugLog						gLog("Nitpick.log");
 PluginHandle					g_pluginHandle = kPluginHandle_Invalid;
 
-_DefineHookHdlr(INICollectionLoadSetting, 0x00AD0B13);
-_DefineHookHdlr(TESDataHandlerPopulatePluginList, 0x0043EA97);
-_DefineNopHdlr(SkipDefaultVerletObjA, 0x0046EFA0, 2);
-_DefinePatchHdlr(SkipDefaultVerletObjB, 0x0046EF6C);
-
-static float kUnkVerletMultiplier = -2000.0f;
+_DefineHookHdlr(INICollectionLoadSetting, 0x00AFE4C3);
+_DefineHookHdlr(TESDataHandlerPopulatePluginList, 0x0043E8F7);
 
 void StartPickingNit()
 {
 	_MemHdlr(INICollectionLoadSetting).WriteJump();
 	_MemHdlr(TESDataHandlerPopulatePluginList).WriteJump();
-	_MemHdlr(SkipDefaultVerletObjA).WriteNop();
-	_MemHdlr(SkipDefaultVerletObjB).WriteUInt8(0xEB);
-//	SafeWrite32(0x006C0874 + 2, (UInt32)&kUnkVerletMultiplier);
-//	SafeWrite32(0x006C08E4 + 2, (UInt32)&kUnkVerletMultiplier);
 }
 
 static char			s_GetPrivateProfileStringAuxBuffer[0x8000] = {0};		// large enough, I should think
@@ -26,7 +18,7 @@ static char			s_GetPrivateProfileStringAuxBuffer[0x8000] = {0};		// large enough
 #define _hhName	INICollectionLoadSetting
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x00AD0B34);
+	_hhSetVar(Retn, 0x00AFE4E4);
 	__asm
 	{
 		push    0x8000
@@ -48,8 +40,8 @@ bool __stdcall FixPluginListPopulation(WIN32_FIND_DATA* FileData)
 	static std::list<std::string> kActivePluginList;
 	if (kActivePluginList.size() == 0)
 	{
-		const char* kAppDataPath = (const char*)0x01B438E8;
-		const char* kPluginListName = *((const char**)0x0121AF7C);
+		const char* kAppDataPath = (const char*)0x01B9B5E8;
+		const char* kPluginListName = ".\\Plugins.txt";
 
 		char Buffer[0x104] = {0};
 		strcpy_s(Buffer, sizeof(Buffer), kAppDataPath);
@@ -90,8 +82,8 @@ bool __stdcall FixPluginListPopulation(WIN32_FIND_DATA* FileData)
 #define _hhName	TESDataHandlerPopulatePluginList
 _hhBegin()
 {
-	_hhSetVar(Retn, 0x0043EA9E);
-	_hhSetVar(Jump, 0x0043EC03);
+	_hhSetVar(Retn, 0x0043E8FE);
+	_hhSetVar(Jump, 0x0043EA63);
 	__asm
 	{
 		lea     eax, [esp + 0x128]
