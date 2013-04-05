@@ -36,6 +36,12 @@
       <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="..\SKSE\skse\GameData.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SKSE\skse\NiNodes.cpp">
+      <Filter>SKSE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="SKSE">
