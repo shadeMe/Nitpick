@@ -153,7 +153,6 @@
     <ClCompile Include="..\SKSE\skse\GameTypes.cpp" />
     <ClCompile Include="..\SKSE\skse\NiNodes.cpp" />
     <ClCompile Include="..\SKSE\skse\Utilities.cpp" />
-    <ClCompile Include="..\[Libraries]\SME Sundries\MemoryHandler.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="NitpickInternals.cpp" />
   </ItemGroup>
