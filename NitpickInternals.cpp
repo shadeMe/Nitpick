@@ -7,10 +7,54 @@ PluginHandle					g_pluginHandle = kPluginHandle_Invalid;
 _DefineHookHdlr(INICollectionLoadSetting, 0x00AFEE53);
 _DefineHookHdlr(TESDataHandlerPopulatePluginList, 0x0043E457);
 
+
+
+
+void __stdcall Inv3DTestHook(void* obj, UInt32 staticObj, UInt32 nodeSmrtPtr)
+{
+	UInt32 inv3DMgr = *((UInt32*)(0x01B2E99C));
+
+	UInt32 pcNode = thisVirtualCall<UInt32>(0x1C0, *((UInt32*)0x01B2E8E4));
+	//NiNode* clone = thisCall<NiNode*>(0x00AAFF30, pcNode);
+	UInt32 clone = pcNode;
+
+	thisCall<void>(0x004B7A20, nodeSmrtPtr, clone);
+	thisCall<void>(0x008672E0, inv3DMgr, obj, staticObj, nodeSmrtPtr);
+}
+
+void __stdcall doinvtest2(void* nodeSmrtPtr)
+{
+	UInt32 pcNode = thisVirtualCall<UInt32>(0x1C0, *((UInt32*)0x01B2E8E4));
+	NiNode* clone = thisCall<NiNode*>(0x00AAFF30, pcNode);
+
+	thisCall<void>(0x004B7A20, nodeSmrtPtr, clone);
+}
+
+#define _hhName	invtest2
+_hhBegin()
+{
+	_hhSetVar(Retn, 0x008676E3);
+	__asm
+	{
+		lea		eax, [esp + 0x14]
+		pushad
+		push	eax
+		call	doinvtest2
+		popad
+		call	edx
+
+		jmp		[_hhGetVar(Retn)]
+	}
+}
+_DefineHookHdlr(invtest2, 0x008676C7);
+
 void StartPickingNit()
 {
 	_MemHdlr(INICollectionLoadSetting).WriteJump();
 	_MemHdlr(TESDataHandlerPopulatePluginList).WriteJump();
+
+	WriteRelCall(0x008675EC, (UInt32)Inv3DTestHook);
+//	_MemHdlr(invtest2).WriteJump();
 }
 
 static char			s_GetPrivateProfileStringAuxBuffer[0x8000] = {0};		// large enough, I should think
